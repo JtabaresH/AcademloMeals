@@ -25,10 +25,11 @@ const getAllRestaurants = catchAsync(async (req, res, next) => {
   const restaurants = await Restaurant.findAll({
     where: { status: 'active' },
     attributes: ['id', 'name', 'address', 'rating', 'status'],
-    required: false,
     include: [
       {
         model: Review,
+        required: false,
+        where: { status: 'active' },
         attributes: [
           'id',
           'userId',
